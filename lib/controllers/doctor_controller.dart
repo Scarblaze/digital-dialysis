@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:digitaldailysis/data/repository/doctor_repo.dart';
 import 'package:digitaldailysis/models/patient/patient_list_model.dart';
 import 'package:digitaldailysis/widgets/custom_snackbar.dart';
-import 'package:http/src/response.dart';
 
 import '../routes/route_helper.dart';
 
@@ -23,23 +22,26 @@ class DoctorController extends GetxController implements GetxService {
     _isLoading = true;
     update();
 
-    dynamic response = await doctorRepo.getPatientsList(doctorId);
-
-    if (response.statusCode == 200) {
-      final decoded = jsonDecode(response.body);
-      if (decoded['success'] == true) {
-        _patients = (decoded['patients'] as List)
-            .map((e) => PatientModel.fromJson(e))
-            .toList();
+    try {
+      final response = await doctorRepo.getPatientsList(doctorId);
+      if (response.statusCode == 200) {
+        final decoded = jsonDecode(response.body);
+        if (decoded['success'] == true) {
+          _patients = (decoded['patients'] as List)
+              .map((e) => PatientModel.fromJson(e))
+              .toList();
+        } else {
+          customSnackBar("No patients found");
+        }
       } else {
-        customSnackBar("No patients found");
+        customSnackBar("Failed to load patients (HTTP ${response.statusCode})");
       }
-    } else {
-      customSnackBar("Failed to load patients");
+    } catch (e) {
+      customSnackBar("Failed to load patients: $e");
+    } finally {
+      _isLoading = false;
+      update();
     }
-
-    _isLoading = false;
-    update();
   }
 
   Future<void> registerPatient(
@@ -47,13 +49,15 @@ class DoctorController extends GetxController implements GetxService {
     _isLoading = true;
     update();
 
-    dynamic response = await doctorRepo.postregisterPatient(name,email,password,doctorId);
+    try {
+      final response =
+          await doctorRepo.postregisterPatient(name, email, password, doctorId);
+      Map<String, dynamic>? decoded;
+      try {
+        decoded = jsonDecode(response.body);
+      } catch (_) {}
 
-    if (response.statusCode == 200) {
-      final decoded = jsonDecode(response.body);
-      final success = decoded['success'];
-      print(decoded);
-      if (success) {
+      if (response.statusCode == 200 && decoded?['success'] == true) {
         Get.offNamed(RouteHelper.getDoctorHomeScreen(doctorId));
         Get.snackbar(
           "Success",
@@ -65,17 +69,16 @@ class DoctorController extends GetxController implements GetxService {
       } else {
         Get.snackbar(
           "Error",
-          "Failed to register patient",
+          decoded?['message']?.toString() ??
+              "Failed to register patient (HTTP ${response.statusCode})",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.redAccent,
           colorText: Colors.white,
         );
       }
-
-
+    } finally {
       _isLoading = false;
-    update();
-
+      update();
+    }
   }
-
-}}
+}

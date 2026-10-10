@@ -1,6 +1,5 @@
 // lib/controllers/patient_panel_controller.dart
 import 'dart:convert';
-import 'dart:io';
 import 'package:digitaldailysis/widgets/custom_snackbar.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +13,25 @@ class PatientPanelController extends GetxController  implements GetxService {
   final String patientId;
 
   PatientPanelController({required this.apiClient, required this.patientId});
+
+  /// Returns the controller registered for [patientId], creating it if needed.
+  /// Registered as permanent so it survives route changes until logout.
+  static PatientPanelController ensure(String patientId,
+      {ApiClient? apiClient, bool refresh = false}) {
+    if (Get.isRegistered<PatientPanelController>(tag: patientId)) {
+      final existing = Get.find<PatientPanelController>(tag: patientId);
+      if (refresh) existing.fetchSummary();
+      return existing;
+    }
+    return Get.put(
+      PatientPanelController(
+        apiClient: apiClient ?? Get.find<ApiClient>(),
+        patientId: patientId,
+      ),
+      tag: patientId,
+      permanent: true,
+    );
+  }
 
   RxBool isLoading = false.obs;
   RxString errorMsg = "".obs;
@@ -200,7 +218,7 @@ class PatientPanelController extends GetxController  implements GetxService {
 
         if (body['success'] == true) {
           materialSessionDetails.value =
-              MaterialSessionResponse.fromJson(body) as MaterialSessionResponse;
+              MaterialSessionResponse.fromJson(body);
         } else {
           errorMsg(body['message'] ?? 'No material session found');
           print('Unexpected response body: $body');

@@ -1,11 +1,7 @@
-import 'dart:convert';
 
-import 'package:get/get.dart';
 import 'package:digitaldailysis/data/api/api_client.dart';
 import 'package:digitaldailysis/utils/app_constants.dart';
-import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/src/response.dart';
 
 class DoctorRepo {
   final ApiClient apiClient;

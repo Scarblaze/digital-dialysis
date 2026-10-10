@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../controllers/patient_panel_controller.dart';
-import 'day_voluntary_screen.dart';
 
 
 class DayDetailsPage extends StatelessWidget {
@@ -350,7 +347,7 @@ class DayDetailsPage extends StatelessWidget {
 //       width: double.infinity,
 //       padding: EdgeInsets.all(screenWidth * 0.04),
 //       decoration: BoxDecoration(
-//         color: color.withOpacity(0.1),
+//         color: color.withValues(alpha: 0.1),
 //         border: Border(bottom: BorderSide(color: color, width: 2)),
 //       ),
 //       child: Row(
@@ -522,7 +519,7 @@ class DayDetailsPage extends StatelessWidget {
 //   Widget _buildRemarkCard(String title, String subtitle, Color color, double screenWidth) {
 //     return Card(
 //       elevation: 2,
-//       color: color.withOpacity(0.1),
+//       color: color.withValues(alpha: 0.1),
 //       child: Padding(
 //         padding: EdgeInsets.all(screenWidth * 0.04),
 //         child: Row(

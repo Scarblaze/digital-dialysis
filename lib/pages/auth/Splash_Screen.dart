@@ -1,18 +1,31 @@
+import 'package:digitaldailysis/controllers/login_controller.dart';
 import 'package:digitaldailysis/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (!mounted) return;
+      // Go straight to the home screen if a previous login was saved
+      if (!Get.find<LoginController>().restoreSession()) {
+        Get.offNamed(RouteHelper.getLoginPage());
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    // Use GetX for navigation after delay
-    Future.delayed(const Duration(seconds: 3), () {
-      Get.offNamed(RouteHelper.loginPage); // Navigate to your login route
-    });
 
     return Scaffold(
       backgroundColor: Colors.white,

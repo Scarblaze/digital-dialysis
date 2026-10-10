@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:digitaldailysis/controllers/doctor_controller.dart';
+import 'package:digitaldailysis/controllers/login_controller.dart';
 import 'package:digitaldailysis/routes/route_helper.dart';
 import 'package:digitaldailysis/utils/colors.dart';
 
@@ -38,6 +39,13 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: AppColors.darkPrimary,
+        actions: [
+          IconButton(
+            tooltip: "Logout",
+            icon: const Icon(Icons.logout, color: AppColors.white),
+            onPressed: () => Get.find<LoginController>().logout(),
+          ),
+        ],
         title: Text(
           "My Patients",
           style: TextStyle(
@@ -74,12 +82,22 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
           if (controller.patients.isEmpty) {
             return Center(
-              child: Text(
-                "No patients found",
-                style: TextStyle(
-                  fontSize: w * 0.04,
-                  color: AppColors.darkGrey,
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "No patients found",
+                    style: TextStyle(
+                      fontSize: w * 0.04,
+                      color: AppColors.darkGrey,
+                    ),
+                  ),
+                  TextButton.icon(
+                    onPressed: () => controller.fetchPatients(widget.doctorId),
+                    icon: const Icon(Icons.refresh),
+                    label: const Text("Retry"),
+                  ),
+                ],
               ),
             );
           }
@@ -101,7 +119,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                     borderRadius: BorderRadius.circular(w * 0.04),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.mediumGrey.withOpacity(0.3),
+                        color: AppColors.mediumGrey.withValues(alpha: 0.3),
                         blurRadius: w * 0.02,
                         offset: Offset(0, h * 0.005),
                       ),

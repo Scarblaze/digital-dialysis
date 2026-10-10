@@ -443,7 +443,7 @@ class _CreateActiveMaterialScreenState
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: AppColors.mediumGrey.withOpacity(0.3),
+            color: AppColors.mediumGrey.withValues(alpha: 0.3),
             blurRadius: w * 0.02,
           ),
         ],

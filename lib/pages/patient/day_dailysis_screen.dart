@@ -445,7 +445,7 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(width * 0.03),
                         border: Border.all(
-                            color: AppColors.darkPrimary.withOpacity(0.3),
+                            color: AppColors.darkPrimary.withValues(alpha: 0.3),
                             width: 2),
                         image: DecorationImage(
                           image: kIsWeb
@@ -462,7 +462,7 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
                         color: AppColors.lightGrey,
                         borderRadius: BorderRadius.circular(width * 0.03),
                         border: Border.all(
-                          color: AppColors.mediumGrey.withOpacity(0.5),
+                          color: AppColors.mediumGrey.withValues(alpha: 0.5),
                           width: 2,
                           strokeAlign: BorderSide.strokeAlignInside,
                         ),
@@ -697,9 +697,11 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
                       Get.offNamedUntil(
                         RouteHelper.getPatientMaterialSessionDetails(
                             widget.MaterialSessionId, widget.patientId),
+                        // keep the patient home screen underneath
                             (route) =>
-                        route.settings.name ==
-                            RouteHelper.patientMaterialSessionDetails,
+                        route.settings.name?.startsWith(
+                                RouteHelper.patientHomeScreen) ??
+                            false,
                       );
                     }
                   },
@@ -717,7 +719,7 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
                     foregroundColor: AppColors.white,
                     elevation: 4,
                     shadowColor:
-                    AppStatusColors.verified.withOpacity(0.4),
+                    AppStatusColors.verified.withValues(alpha: 0.4),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(width * 0.03),
                     ),
@@ -749,7 +751,7 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
         borderRadius: BorderRadius.circular(width * 0.04),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.08),
+            color: AppColors.black.withValues(alpha: 0.08),
             blurRadius: 12,
             offset: Offset(0, 4),
           ),
@@ -761,7 +763,7 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
           Container(
             padding: EdgeInsets.all(width * 0.045),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.08),
+              color: color.withValues(alpha: 0.08),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(width * 0.04),
                 topRight: Radius.circular(width * 0.04),
@@ -772,7 +774,7 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
                 Container(
                   padding: EdgeInsets.all(width * 0.02),
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.15),
+                    color: color.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(width * 0.02),
                   ),
                   child: Icon(icon, color: color, size: width * 0.055),
@@ -831,7 +833,8 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
     final width = MediaQuery.of(context).size.width;
 
     return DropdownButtonFormField<String>(
-      value: value,
+      key: ValueKey("$label:$value"),
+      initialValue: value,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(
@@ -843,12 +846,12 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
         fillColor: AppColors.lightGrey,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(width * 0.025),
-          borderSide: BorderSide(color: AppColors.mediumGrey.withOpacity(0.3)),
+          borderSide: BorderSide(color: AppColors.mediumGrey.withValues(alpha: 0.3)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(width * 0.025),
           borderSide: BorderSide(
-            color: AppColors.mediumGrey.withOpacity(0.3),
+            color: AppColors.mediumGrey.withValues(alpha: 0.3),
             width: 1.5,
           ),
         ),
@@ -914,12 +917,12 @@ class _DayDialysisScreenState extends State<DayDialysisScreen> {
         fillColor: AppColors.lightGrey,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(width * 0.025),
-          borderSide: BorderSide(color: AppColors.mediumGrey.withOpacity(0.3)),
+          borderSide: BorderSide(color: AppColors.mediumGrey.withValues(alpha: 0.3)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(width * 0.025),
           borderSide: BorderSide(
-            color: AppColors.mediumGrey.withOpacity(0.3),
+            color: AppColors.mediumGrey.withValues(alpha: 0.3),
             width: 1.5,
           ),
         ),

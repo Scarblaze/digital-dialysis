@@ -291,7 +291,7 @@ class PatientInfoScreen extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundColor: color.withOpacity(0.15),
+              backgroundColor: color.withValues(alpha: 0.15),
               child: Icon(Icons.event, color: color),
             ),
             SizedBox(width: w * 0.04),
@@ -323,7 +323,7 @@ class PatientInfoScreen extends StatelessWidget {
                 vertical: h * 0.005,
               ),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.12),
+                color: color.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(w * 0.02),
               ),
               child: Text(

@@ -7,6 +7,8 @@ import '../../utils/app_constants.dart';
 import 'dart:io';
 
 class ApiClient extends GetConnect implements GetxService {
+  static const Duration requestTimeout = Duration(seconds: 30);
+
   late String token;
   final String appBaseUrl;
   late SharedPreferences sharedPreferences;
@@ -32,6 +34,14 @@ class ApiClient extends GetConnect implements GetxService {
     sharedPreferences.setString(AppConstants.TOKEN, token);
   }
 
+  Future<void> clearSession() async {
+    token = "";
+    _mainHeaders = {'Content-type': 'application/json; charset=UTF-8'};
+    await sharedPreferences.remove(AppConstants.TOKEN);
+    await sharedPreferences.remove(AppConstants.USER_ROLE);
+    await sharedPreferences.remove(AppConstants.USER_ID);
+  }
+
   Future<Response> getData(String uri, {Map<String, String>? headers}) async {
     try {
       Response response = await get(uri, headers: headers ?? _mainHeaders);
@@ -49,7 +59,7 @@ class ApiClient extends GetConnect implements GetxService {
         Uri.parse(uri),
         body: jsonBody,
         headers: _mainHeaders,
-      );
+      ).timeout(requestTimeout);
 
       print("Response Status Code: ${response.statusCode}");
       print("Response Body: ${response.body}");
@@ -65,7 +75,9 @@ class ApiClient extends GetConnect implements GetxService {
   Future<http.Response> patchData(String uri, dynamic body) async {
     try {
       final String jsonBody = jsonEncode(body);
-      final response = await http.patch(Uri.parse(uri), body: jsonBody, headers: _mainHeaders);
+      final response = await http
+          .patch(Uri.parse(uri), body: jsonBody, headers: _mainHeaders)
+          .timeout(requestTimeout);
       return response;
     } catch (e) {
       return http.Response(jsonEncode({'message': 'error', 'error': e.toString()}), 500);

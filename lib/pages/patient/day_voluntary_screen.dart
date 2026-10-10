@@ -1,4 +1,4 @@
-import 'package:digitaldailysis/pages/patient/day_dailysis_screen.dart';
+import 'package:digitaldailysis/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/patient_panel_controller.dart';
@@ -6,7 +6,7 @@ import '../../controllers/patient_panel_controller.dart';
 class DayVoluntaryScreen extends StatelessWidget {
   final String materialSessionId;
   final int dayNumber;
-  final patientId;
+  final String patientId;
 
   const DayVoluntaryScreen({
     super.key,
@@ -32,11 +32,12 @@ class DayVoluntaryScreen extends StatelessWidget {
               await controller.startDialysisDay(materialSessionId);
 
               if (sessionId != null) {
-                Get.to(() => DayDialysisScreen(
-                  sessionId: sessionId,
-                  patientId: patientId,
-                  dayNumber: dayNumber, MaterialSessionId: materialSessionId,
-                ), arguments: patientId);
+                Get.toNamed(RouteHelper.getDayDialysisScreen(
+                  sessionId,
+                  dayNumber,
+                  materialSessionId,
+                  patientId,
+                ));
               }
             },
             child: Text("Start Dialysis"),

@@ -1,7 +1,6 @@
 // lib/pages/doctor/dialysis_session_detail_page.dart
 
 import 'package:digitaldailysis/controllers/doctor_material_controller.dart';
-import 'package:digitaldailysis/controllers/patient_info_controller.dart';
 import 'package:digitaldailysis/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -73,7 +72,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
                 alignment: Alignment.bottomLeft,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [statusColor, statusColor.withOpacity(0.8)],
+                    colors: [statusColor, statusColor.withValues(alpha: 0.8)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -85,7 +84,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
                     Container(
                       padding: EdgeInsets.all(w * 0.035),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(w * 0.035),
                       ),
                       child: Icon(
@@ -110,7 +109,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
                         vertical: h * 0.006,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.25),
+                        color: Colors.white.withValues(alpha: 0.25),
                         borderRadius: BorderRadius.circular(w * 0.04),
                       ),
                       child: Text(
@@ -134,7 +133,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
                             'Completed: ${_formatDateBeautiful(completedAt)}',
                             style: TextStyle(
                               fontSize: w * 0.036,
-                              color: Colors.white.withOpacity(0.95),
+                              color: Colors.white.withValues(alpha: 0.95),
                             ),
                           ),
                         ],
@@ -204,7 +203,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
                           borderRadius: BorderRadius.circular(w * 0.04),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.green.withOpacity(0.3),
+                              color: Colors.green.withValues(alpha: 0.3),
                               blurRadius: 10,
                               offset: Offset(0, 4),
                             ),
@@ -327,9 +326,9 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
     return Container(
       padding: EdgeInsets.all(w * 0.04),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.05),
+        color: Colors.green.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: Colors.green.withOpacity(0.3)),
+        border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,12 +382,12 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
       padding: EdgeInsets.all(w * 0.045),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue.withOpacity(0.08), Colors.purple.withOpacity(0.05)],
+          colors: [Colors.blue.withValues(alpha: 0.08), Colors.purple.withValues(alpha: 0.05)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: Colors.blue.withOpacity(0.3), width: 1.5),
+        border: Border.all(color: Colors.blue.withValues(alpha: 0.3), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -398,7 +397,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
               Container(
                 padding: EdgeInsets.all(w * 0.025),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.15),
+                  color: Colors.blue.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(w * 0.02),
                 ),
                 child: Icon(Icons.verified_user, color: Colors.blue[700], size: w * 0.06),
@@ -546,7 +545,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: statusColor.withOpacity(0.1),
+            color: statusColor.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: Offset(0, 4),
           ),
@@ -617,7 +616,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
         Container(
           padding: EdgeInsets.all(w * 0.025),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.15),
+            color: color.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(w * 0.03),
           ),
           child: Icon(icon, color: color, size: w * 0.055),
@@ -750,10 +749,10 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+        border: Border.all(color: color.withValues(alpha: 0.2), width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.08),
+            color: color.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: Offset(0, 3),
           ),
@@ -767,7 +766,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
               Container(
                 padding: EdgeInsets.all(w * 0.02),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.15),
+                  color: color.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(w * 0.02),
                 ),
                 child: Icon(icon, color: color, size: w * 0.05),
@@ -860,10 +859,10 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: Colors.purple.withOpacity(0.2), width: 1.5),
+        border: Border.all(color: Colors.purple.withValues(alpha: 0.2), width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.purple.withOpacity(0.08),
+            color: Colors.purple.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: Offset(0, 3),
           ),
@@ -877,7 +876,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
               Container(
                 padding: EdgeInsets.all(w * 0.02),
                 decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.15),
+                  color: Colors.purple.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(w * 0.02),
                 ),
                 child: Icon(Icons.comment, color: Colors.purple, size: w * 0.05),
@@ -897,7 +896,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
           Container(
             padding: EdgeInsets.all(w * 0.035),
             decoration: BoxDecoration(
-              color: Colors.purple.withOpacity(0.05),
+              color: Colors.purple.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(w * 0.025),
             ),
             child: Text(
@@ -934,7 +933,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
                   borderRadius: BorderRadius.circular(w * 0.04),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.orange.withOpacity(0.2),
+                      color: Colors.orange.withValues(alpha: 0.2),
                       blurRadius: 10,
                       offset: Offset(0, 4),
                     ),
@@ -953,7 +952,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.black.withOpacity(0.4)
+                              Colors.black.withValues(alpha: 0.4)
                             ],
                           ),
                         ),
@@ -964,7 +963,7 @@ class _DialysisSessionDetailPageState extends State<DialysisSessionDetailPage> {
                         child: Container(
                           padding: EdgeInsets.all(w * 0.02),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             borderRadius: BorderRadius.circular(w * 0.02),
                           ),
                           child: Icon(Icons.zoom_in, size: w * 0.05),

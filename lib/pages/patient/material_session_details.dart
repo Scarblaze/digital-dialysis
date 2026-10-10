@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../controllers/patient_panel_controller.dart';
-import 'day_details_page.dart';
 
 class MaterialSessionDetailsPage extends StatefulWidget {
   final String sessionId;
@@ -49,9 +48,13 @@ class _MaterialSessionDetailsPageState
           icon: const Icon(Icons.arrow_back),
           color: AppColors.white,
           onPressed: () {
-            Get.offNamed(
-              RouteHelper.getPatientHomeScreen(widget.patientId),
-            );
+            // Refresh the home summary, then return to it
+            controller.fetchSummary();
+            if (Navigator.of(context).canPop()) {
+              Get.back();
+            } else {
+              Get.offNamed(RouteHelper.getPatientHomeScreen(widget.patientId));
+            }
           },
         ),
         title: const Text(
@@ -162,11 +165,11 @@ class _MaterialSessionDetailsPageState
         onPressed: () {
           // Navigate to DayVoluntaryScreen
           Get.toNamed(
-            "/day-voluntary",
-            parameters: {
-              'id': session.materialSessionId,
-              'day': '${(session.completedSessions ?? 0) + 1}', // Next session number
-            },
+            RouteHelper.getDayVoluntaryScreen(
+              session.materialSessionId,
+              (session.completedSessions ?? 0) + 1, // Next session number
+              widget.patientId,
+            ),
           );
         },
         icon: Icon(Icons.play_circle_filled, size: screenWidth * 0.055),
@@ -218,7 +221,7 @@ class _MaterialSessionDetailsPageState
         gradient: LinearGradient(
           colors: [
             AppColors.darkPrimary,
-            AppColors.darkPrimary.withOpacity(0.8)
+            AppColors.darkPrimary.withValues(alpha: 0.8)
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -233,10 +236,10 @@ class _MaterialSessionDetailsPageState
               vertical: screenWidth * 0.02,
             ),
             decoration: BoxDecoration(
-              color: statusColor.withOpacity(0.2),
+              color: statusColor.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(screenWidth * 0.06),
               border:
-              Border.all(color: statusColor.withOpacity(0.5), width: 1.5),
+              Border.all(color: statusColor.withValues(alpha: 0.5), width: 1.5),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -280,13 +283,13 @@ class _MaterialSessionDetailsPageState
     return Row(
       children: [
         Icon(icon,
-            color: AppColors.white.withOpacity(0.8),
+            color: AppColors.white.withValues(alpha: 0.8),
             size: screenWidth * 0.045),
         SizedBox(width: screenWidth * 0.02),
         Text(
           "$label: ",
           style: TextStyle(
-            color: AppColors.white.withOpacity(0.9),
+            color: AppColors.white.withValues(alpha: 0.9),
             fontSize: screenWidth * 0.035,
             fontWeight: FontWeight.w500,
           ),
@@ -322,7 +325,7 @@ class _MaterialSessionDetailsPageState
                   Container(
                     padding: EdgeInsets.all(screenWidth * 0.02),
                     decoration: BoxDecoration(
-                      color: AppColors.darkPrimary.withOpacity(0.1),
+                      color: AppColors.darkPrimary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(screenWidth * 0.02),
                     ),
                     child: Icon(Icons.bar_chart,
@@ -421,9 +424,9 @@ class _MaterialSessionDetailsPageState
     return Container(
       padding: EdgeInsets.all(screenWidth * 0.035),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.08),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(screenWidth * 0.03),
-        border: Border.all(color: color.withOpacity(0.2), width: 1),
+        border: Border.all(color: color.withValues(alpha: 0.2), width: 1),
       ),
       child: Column(
         children: [
@@ -474,7 +477,7 @@ class _MaterialSessionDetailsPageState
                   Container(
                     padding: EdgeInsets.all(screenWidth * 0.02),
                     decoration: BoxDecoration(
-                      color: AppColors.darkPrimary.withOpacity(0.1),
+                      color: AppColors.darkPrimary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(screenWidth * 0.02),
                     ),
                     child: Icon(Icons.medical_services,
@@ -625,9 +628,9 @@ class _MaterialSessionDetailsPageState
     return Container(
       padding: EdgeInsets.all(screenWidth * 0.03),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.08),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(screenWidth * 0.025),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
@@ -697,7 +700,7 @@ class _MaterialSessionDetailsPageState
                   Container(
                     padding: EdgeInsets.all(screenWidth * 0.02),
                     decoration: BoxDecoration(
-                      color: AppColors.darkPrimary.withOpacity(0.1),
+                      color: AppColors.darkPrimary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(screenWidth * 0.02),
                     ),
                     child: Icon(Icons.photo_library,
@@ -734,7 +737,7 @@ class _MaterialSessionDetailsPageState
                         color: AppColors.lightGrey,
                         borderRadius: BorderRadius.circular(screenWidth * 0.03),
                         border: Border.all(
-                            color: AppColors.mediumGrey.withOpacity(0.3)),
+                            color: AppColors.mediumGrey.withValues(alpha: 0.3)),
                       ),
                       child: Icon(
                         Icons.image_not_supported,
@@ -840,7 +843,7 @@ class _MaterialSessionDetailsPageState
                   Container(
                     padding: EdgeInsets.all(screenWidth * 0.02),
                     decoration: BoxDecoration(
-                      color: AppColors.darkPrimary.withOpacity(0.1),
+                      color: AppColors.darkPrimary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(screenWidth * 0.02),
                     ),
                     child: Icon(Icons.event_note,
@@ -921,9 +924,9 @@ class _MaterialSessionDetailsPageState
         child: Container(
           padding: EdgeInsets.all(screenWidth * 0.04),
           decoration: BoxDecoration(
-            color: statusColor.withOpacity(0.08),
+            color: statusColor.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(screenWidth * 0.04),
-            border: Border.all(color: statusColor.withOpacity(0.4), width: 2),
+            border: Border.all(color: statusColor.withValues(alpha: 0.4), width: 2),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -935,14 +938,14 @@ class _MaterialSessionDetailsPageState
                     height: screenWidth * 0.12,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [statusColor, statusColor.withOpacity(0.8)],
+                        colors: [statusColor, statusColor.withValues(alpha: 0.8)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: statusColor.withOpacity(0.3),
+                          color: statusColor.withValues(alpha: 0.3),
                           blurRadius: 8,
                           offset: Offset(0, 2),
                         ),
@@ -997,7 +1000,7 @@ class _MaterialSessionDetailsPageState
                   Container(
                     padding: EdgeInsets.all(screenWidth * 0.02),
                     decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.15),
+                      color: statusColor.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(

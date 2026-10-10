@@ -15,6 +15,7 @@ import 'package:digitaldailysis/pages/doctor/register_patient_page.dart';
 import 'package:digitaldailysis/pages/doctor/patient_info_screen.dart';
 import 'package:digitaldailysis/pages/doctor/material_session_details.dart';
 import 'package:digitaldailysis/controllers/patient_info_controller.dart';
+import 'package:digitaldailysis/controllers/patient_panel_controller.dart';
 
 class RouteHelper {
   // 🔹 Route names
@@ -56,6 +57,17 @@ class RouteHelper {
       String sessionId, String patientId) =>
       "$patientMaterialSessionDetails?sessionId=$sessionId&patientId=$patientId";
 
+  static const String dayVoluntaryScreen = "/day-voluntary";
+  static const String dayDialysisScreen = "/day-dialysis";
+
+  static String getDayVoluntaryScreen(
+      String materialSessionId, int day, String patientId) =>
+      "$dayVoluntaryScreen?id=$materialSessionId&day=$day&pid=$patientId";
+
+  static String getDayDialysisScreen(String sessionId, int day,
+      String materialSessionId, String patientId) =>
+      "$dayDialysisScreen?sid=$sessionId&day=$day&msid=$materialSessionId&pid=$patientId";
+
   // 🔹 Route list
   static List<GetPage> routes = [
     GetPage(
@@ -79,8 +91,9 @@ class RouteHelper {
     GetPage(
       name: patientMaterialSessionDetails,
       page: () {
-        final sessionId = Get.parameters["sessionId"]!;
-        final patientId = Get.parameters["patientId"]!;
+        final sessionId = Get.parameters["sessionId"] ?? '';
+        final patientId = Get.parameters["patientId"] ?? '';
+        PatientPanelController.ensure(patientId);
         return MaterialSessionDetailsPage(
           sessionId: sessionId,
           patientId: patientId,
@@ -144,25 +157,35 @@ class RouteHelper {
       name: patientHomeScreen,
       page: () {
         final pid = Get.parameters['patientId'] ?? '';
+        PatientPanelController.ensure(pid);
         return PatientHomeScreen(patientId: pid);
       },
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: "/day-voluntary",
-      page: () => DayVoluntaryScreen(
-        materialSessionId: Get.parameters['id']!,
-        dayNumber: int.parse(Get.parameters['day']!),
-        patientId: ''
-      ),
+      name: dayVoluntaryScreen,
+      page: () {
+        final pid = Get.parameters['pid'] ?? '';
+        PatientPanelController.ensure(pid);
+        return DayVoluntaryScreen(
+          materialSessionId: Get.parameters['id'] ?? '',
+          dayNumber: int.tryParse(Get.parameters['day'] ?? '') ?? 1,
+          patientId: pid,
+        );
+      },
     ),
     GetPage(
-      name: "/day-dialysis",
-      page: () => DayDialysisScreen(
-        patientId: '',
-        sessionId: Get.parameters['sid']!,
-        dayNumber: int.parse(Get.parameters['day']!), MaterialSessionId: '',
-      ),
+      name: dayDialysisScreen,
+      page: () {
+        final pid = Get.parameters['pid'] ?? '';
+        PatientPanelController.ensure(pid);
+        return DayDialysisScreen(
+          patientId: pid,
+          sessionId: Get.parameters['sid'] ?? '',
+          dayNumber: int.tryParse(Get.parameters['day'] ?? '') ?? 1,
+          MaterialSessionId: Get.parameters['msid'] ?? '',
+        );
+      },
     ),
   ];
 }

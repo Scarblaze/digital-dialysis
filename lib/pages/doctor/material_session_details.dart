@@ -2,16 +2,13 @@
 
 import 'dart:io';
 
-import 'package:digitaldailysis/controllers/doctor_material_controller.dart';
 import 'package:digitaldailysis/controllers/patient_info_controller.dart';
 import 'package:digitaldailysis/pages/doctor/dailysis_session_detail_page.dart';
 
-import 'package:digitaldailysis/pages/doctor/doc_day_detail_page.dart';
 import 'package:digitaldailysis/utils/colors.dart';
 //import 'package:digitaldailysis/utils/pdf_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:digitaldailysis/models/patient/patient_info_model.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -158,7 +155,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                           'PD Material Session',
                           style: TextStyle(
                             fontSize: w * 0.04,
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -169,7 +166,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                             vertical: h * 0.005,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.25),
+                            color: Colors.white.withValues(alpha: 0.25),
                             borderRadius: BorderRadius.circular(w * 0.04),
                           ),
                           child: Text(
@@ -304,15 +301,15 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
       padding: EdgeInsets.all(w * 0.04),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.white, color.withOpacity(0.05)],
+          colors: [Colors.white, color.withValues(alpha: 0.05)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+        border: Border.all(color: color.withValues(alpha: 0.2), width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -324,7 +321,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
           Container(
             padding: EdgeInsets.all(w * 0.025),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(w * 0.02),
             ),
             child: Icon(icon, color: color, size: w * 0.06),
@@ -359,7 +356,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
         Container(
           padding: EdgeInsets.all(w * 0.025),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.15),
+            color: color.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(w * 0.03),
           ),
           child: Icon(icon, color: color, size: w * 0.055),
@@ -383,15 +380,15 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
       padding: EdgeInsets.all(w * 0.04),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.white, color.withOpacity(0.05)],
+          colors: [Colors.white, color.withValues(alpha: 0.05)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: color.withOpacity(0.2), width: 1.5),
+        border: Border.all(color: color.withValues(alpha: 0.2), width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: Offset(0, 3),
           ),
@@ -402,7 +399,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
           Container(
             padding: EdgeInsets.all(w * 0.025),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(w * 0.02),
             ),
             child: Icon(icon, color: color, size: w * 0.06),
@@ -442,14 +439,14 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.blue.withOpacity(0.05),
-            Colors.purple.withOpacity(0.05)
+            Colors.blue.withValues(alpha: 0.05),
+            Colors.purple.withValues(alpha: 0.05)
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: Colors.blue.withOpacity(0.2), width: 1.5),
+        border: Border.all(color: Colors.blue.withValues(alpha: 0.2), width: 1.5),
       ),
       child: Column(
         children: [
@@ -552,7 +549,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: Colors.green.withOpacity(0.08),
+            color: Colors.green.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: Offset(0, 4),
           ),
@@ -711,7 +708,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
         Container(
           padding: EdgeInsets.all(w * 0.02),
           decoration: BoxDecoration(
-            color: Colors.green.withOpacity(0.15),
+            color: Colors.green.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(w * 0.02),
           ),
           child: Icon(icon, color: Colors.green[700], size: w * 0.045),
@@ -782,7 +779,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
       padding: EdgeInsets.all(w * 0.035),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.green.withOpacity(0.05), Colors.green.withOpacity(0.02)],
+          colors: [Colors.green.withValues(alpha: 0.05), Colors.green.withValues(alpha: 0.02)],
         ),
         borderRadius: BorderRadius.circular(w * 0.03),
       ),
@@ -791,7 +788,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
           Container(
             padding: EdgeInsets.all(w * 0.025),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.15),
+              color: Colors.green.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(w * 0.02),
             ),
             child: Icon(
@@ -843,7 +840,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
       padding: EdgeInsets.all(w * 0.035),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.green.withOpacity(0.05), Colors.green.withOpacity(0.02)],
+          colors: [Colors.green.withValues(alpha: 0.05), Colors.green.withValues(alpha: 0.02)],
         ),
         borderRadius: BorderRadius.circular(w * 0.03),
       ),
@@ -852,7 +849,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
           Container(
             padding: EdgeInsets.all(w * 0.025),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.15),
+              color: Colors.green.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(w * 0.02),
             ),
             child: Icon(
@@ -922,7 +919,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                   borderRadius: BorderRadius.circular(w * 0.04),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.orange.withOpacity(0.2),
+                      color: Colors.orange.withValues(alpha: 0.2),
                       blurRadius: 10,
                       offset: Offset(0, 4),
                     ),
@@ -941,7 +938,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.black.withOpacity(0.4)
+                              Colors.black.withValues(alpha: 0.4)
                             ],
                           ),
                         ),
@@ -952,7 +949,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                         child: Container(
                           padding: EdgeInsets.all(w * 0.02),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             borderRadius: BorderRadius.circular(w * 0.02),
                           ),
                           child: Icon(Icons.zoom_in, size: w * 0.05),
@@ -985,15 +982,15 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
       margin: EdgeInsets.only(bottom: h * 0.015),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.white, sessionStatusColor.withOpacity(0.03)],
+          colors: [Colors.white, sessionStatusColor.withValues(alpha: 0.03)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: sessionStatusColor.withOpacity(0.3), width: 1.5),
+        border: Border.all(color: sessionStatusColor.withValues(alpha: 0.3), width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: sessionStatusColor.withOpacity(0.1),
+            color: sessionStatusColor.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: Offset(0, 3),
           ),
@@ -1028,7 +1025,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                     gradient: LinearGradient(
                       colors: [
                         sessionStatusColor,
-                        sessionStatusColor.withOpacity(0.7)
+                        sessionStatusColor.withValues(alpha: 0.7)
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -1036,7 +1033,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                     borderRadius: BorderRadius.circular(w * 0.03),
                     boxShadow: [
                       BoxShadow(
-                        color: sessionStatusColor.withOpacity(0.3),
+                        color: sessionStatusColor.withValues(alpha: 0.3),
                         blurRadius: 6,
                         offset: Offset(0, 2),
                       ),
@@ -1058,7 +1055,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                         style: TextStyle(
                           fontSize: w * 0.022,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           letterSpacing: 0.5,
                         ),
                       ),
@@ -1083,7 +1080,7 @@ class _MaterialSessionDetailScreenState extends State<MaterialSessionDetailScree
                         padding: EdgeInsets.symmetric(
                             horizontal: w * 0.025, vertical: h * 0.005),
                         decoration: BoxDecoration(
-                          color: sessionStatusColor.withOpacity(0.15),
+                          color: sessionStatusColor.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(w * 0.02),
                         ),
                         child: Row(

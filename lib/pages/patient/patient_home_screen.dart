@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../controllers/login_controller.dart';
 import '../../controllers/patient_panel_controller.dart';
 import '../../utils/colors.dart';
 import '../patient/material_session_details.dart';
@@ -58,11 +59,18 @@ class PatientHomeScreen extends StatelessWidget {
             ),
           ),
           centerTitle: true,
+          actions: [
+            IconButton(
+              tooltip: 'Logout',
+              icon: const Icon(Icons.logout, color: AppColors.white),
+              onPressed: () => Get.find<LoginController>().logout(),
+            ),
+          ],
           bottom: TabBar(
             indicatorColor: AppColors.white,
             indicatorWeight: 3,
             labelColor: AppColors.white,
-            unselectedLabelColor: AppColors.white.withOpacity(0.6),
+            unselectedLabelColor: AppColors.white.withValues(alpha: 0.6),
             labelStyle: TextStyle(
               fontSize: w * 0.035,
               fontWeight: FontWeight.w600,
@@ -89,7 +97,24 @@ class PatientHomeScreen extends StatelessWidget {
           }
 
           if (controller.summary.value == null) {
-            return const Center(child: Text("No data available"));
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    controller.errorMsg.value.isNotEmpty
+                        ? controller.errorMsg.value
+                        : "No data available",
+                    textAlign: TextAlign.center,
+                  ),
+                  TextButton.icon(
+                    onPressed: controller.fetchSummary,
+                    icon: const Icon(Icons.refresh),
+                    label: const Text("Retry"),
+                  ),
+                ],
+              ),
+            );
           }
 
           final data = controller.summary.value!;
@@ -132,7 +157,7 @@ class PatientHomeScreen extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   AppColors.darkPrimary,
-                  AppColors.darkPrimary.withOpacity(0.8),
+                  AppColors.darkPrimary.withValues(alpha: 0.8),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -140,7 +165,7 @@ class PatientHomeScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(w * 0.04),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.darkPrimary.withOpacity(0.3),
+                  color: AppColors.darkPrimary.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -155,7 +180,7 @@ class PatientHomeScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 8,
                       ),
                     ],
@@ -188,7 +213,7 @@ class PatientHomeScreen extends StatelessWidget {
                         patient.email,
                         style: TextStyle(
                           fontSize: w * 0.038,
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                         ),
                       ),
                     ],
@@ -216,7 +241,7 @@ class PatientHomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(w * 0.04),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withValues(alpha: 0.08),
                     blurRadius: 12,
                     offset: const Offset(0, 2),
                   ),
@@ -227,7 +252,7 @@ class PatientHomeScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.all(w * 0.03),
                     decoration: BoxDecoration(
-                      color: AppColors.darkPrimary.withOpacity(0.1),
+                      color: AppColors.darkPrimary.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -288,7 +313,7 @@ class PatientHomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(w * 0.04),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withValues(alpha: 0.08),
                     blurRadius: 12,
                     offset: const Offset(0, 2),
                   ),
@@ -319,7 +344,7 @@ class PatientHomeScreen extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.all(w * 0.03),
                         decoration: BoxDecoration(
-                          color: statusColor.withOpacity(0.12),
+                          color: statusColor.withValues(alpha: 0.12),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -359,7 +384,7 @@ class PatientHomeScreen extends StatelessWidget {
                           vertical: h * 0.006,
                         ),
                         decoration: BoxDecoration(
-                          color: statusColor.withOpacity(0.12),
+                          color: statusColor.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(w * 0.05),
                         ),
                         child: Text(
@@ -408,7 +433,7 @@ class PatientHomeScreen extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   AppColors.darkPrimary,
-                  AppColors.darkPrimary.withOpacity(0.85),
+                  AppColors.darkPrimary.withValues(alpha: 0.85),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -416,7 +441,7 @@ class PatientHomeScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(w * 0.04),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.darkPrimary.withOpacity(0.3),
+                  color: AppColors.darkPrimary.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -447,7 +472,7 @@ class PatientHomeScreen extends StatelessWidget {
                         'Learn about your dialysis care',
                         style: TextStyle(
                           fontSize: w * 0.038,
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                         ),
                       ),
                     ],
@@ -527,7 +552,7 @@ class PatientHomeScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(w * 0.04),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.red.withOpacity(0.3),
+                  color: Colors.red.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -565,7 +590,7 @@ class PatientHomeScreen extends StatelessWidget {
                         'Quick access to your medical team',
                         style: TextStyle(
                           fontSize: w * 0.038,
-                          color: Colors.white.withOpacity(0.95),
+                          color: Colors.white.withValues(alpha: 0.95),
                         ),
                       ),
                     ],
@@ -599,7 +624,7 @@ class PatientHomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 12,
             offset: const Offset(0, 2),
           ),
@@ -617,7 +642,7 @@ class PatientHomeScreen extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     AppColors.darkPrimary,
-                    AppColors.darkPrimary.withOpacity(0.8),
+                    AppColors.darkPrimary.withValues(alpha: 0.8),
                   ],
                 ),
                 shape: BoxShape.circle,
@@ -705,7 +730,7 @@ class PatientHomeScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(w * 0.03),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.green.withOpacity(0.3),
+                      color: Colors.green.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -855,7 +880,7 @@ class PatientHomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -875,7 +900,7 @@ class PatientHomeScreen extends StatelessWidget {
                 width: w * 0.15,
                 height: w * 0.15,
                 decoration: BoxDecoration(
-                  color: accentColor.withOpacity(0.12),
+                  color: accentColor.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(w * 0.03),
                 ),
                 child: Icon(

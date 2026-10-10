@@ -85,7 +85,8 @@ class _Step3BaselineAssessmentState extends State<Step3BaselineAssessment> {
             SizedBox(height: h * 0.02),
 
             Obx(() => DropdownButtonFormField<String>(
-              value: widget.controller.selectedCatheterTechnique.value,
+              key: ValueKey(widget.controller.selectedCatheterTechnique.value),
+              initialValue: widget.controller.selectedCatheterTechnique.value,
               decoration: _inputDecoration(
                 label: "Catheter Technique",
                 icon: Icons.construction,
@@ -681,7 +682,7 @@ class _Step3BaselineAssessmentState extends State<Step3BaselineAssessment> {
       onSelected: (selected) {
         value.value = selected;
       },
-      selectedColor: AppColors.darkPrimary.withOpacity(0.2),
+      selectedColor: AppColors.darkPrimary.withValues(alpha: 0.2),
       checkmarkColor: AppColors.darkPrimary,
       labelStyle: TextStyle(
         fontSize: w * 0.035,
@@ -694,7 +695,7 @@ class _Step3BaselineAssessmentState extends State<Step3BaselineAssessment> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: w * 0.025, horizontal: w * 0.03),
       decoration: BoxDecoration(
-        color: AppColors.darkPrimary.withOpacity(0.1),
+        color: AppColors.darkPrimary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(w * 0.02),
       ),
       child: Row(

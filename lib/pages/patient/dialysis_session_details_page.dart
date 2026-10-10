@@ -146,14 +146,14 @@ class DialysisSessionDetailsPage extends StatelessWidget {
       padding: EdgeInsets.all(w * 0.045),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [statusColor, statusColor.withOpacity(0.8)],
+          colors: [statusColor, statusColor.withValues(alpha: 0.8)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: statusColor.withOpacity(0.3),
+            color: statusColor.withValues(alpha: 0.3),
             blurRadius: 12,
             offset: Offset(0, 4),
           ),
@@ -167,7 +167,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(w * 0.025),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(statusIcon, color: Colors.white, size: w * 0.08),
@@ -190,7 +190,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
                       statusText,
                       style: TextStyle(
                         fontSize: w * 0.038,
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withValues(alpha: 0.9),
                       ),
                     ),
                   ],
@@ -200,7 +200,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
           ),
           if (session.completedAt != null) ...[
             SizedBox(height: h * 0.02),
-            Divider(color: Colors.white.withOpacity(0.3)),
+            Divider(color: Colors.white.withValues(alpha: 0.3)),
             SizedBox(height: h * 0.01),
             Row(
               children: [
@@ -210,7 +210,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
                   "Completed: ${_formatDate(session.completedAt!)}",
                   style: TextStyle(
                     fontSize: w * 0.035,
-                    color: Colors.white.withOpacity(0.95),
+                    color: Colors.white.withValues(alpha: 0.95),
                   ),
                 ),
               ],
@@ -230,7 +230,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: Offset(0, 2),
           ),
@@ -581,7 +581,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: Offset(0, 2),
           ),
@@ -593,7 +593,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(w * 0.04),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.08),
+              color: color.withValues(alpha: 0.08),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(w * 0.04),
                 topRight: Radius.circular(w * 0.04),
@@ -604,7 +604,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(w * 0.02),
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.15),
+                    color: color.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(w * 0.02),
                   ),
                   child: Icon(icon, color: color, size: w * 0.055),
@@ -708,8 +708,8 @@ class DialysisSessionDetailsPage extends StatelessWidget {
         ),
       ),
       backgroundColor: showAsPositive
-          ? Colors.green.withOpacity(0.1)
-          : Colors.grey.withOpacity(0.1),
+          ? Colors.green.withValues(alpha: 0.1)
+          : Colors.grey.withValues(alpha: 0.1),
       avatar: Icon(
         showAsPositive ? Icons.check_circle : Icons.cancel,
         color: showAsPositive ? Colors.green : Colors.grey,
@@ -724,7 +724,7 @@ class DialysisSessionDetailsPage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(w * 0.03),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.08),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(w * 0.025),
       ),
       child: Row(

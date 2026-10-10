@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:digitaldailysis/controllers/patient_panel_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import '../data/repository/login_repo.dart';
 import '../routes/route_helper.dart';
 import '../utils/app_constants.dart';
@@ -17,6 +16,12 @@ class LoginController extends GetxController implements GetxService {
   bool get isLoading => _isLoading;
 
   Future<void> login(String loginId, String password) async {
+    print("Inside login function");
+    if (loginId.isEmpty || password.isEmpty) {
+      customSnackBar("Please enter your Login ID and password");
+      return;
+    }
+
     _isLoading = true;
     update();
 
@@ -26,9 +31,11 @@ class LoginController extends GetxController implements GetxService {
     } catch (e) {
       _isLoading = false;
       update();
-      customSnackBar("Network error: $e");
+      print("Loing error: $e");
+      customSnackBar("Login Network error: $e");
       return;
     }
+    print("Inside login function: Loggedin successfully");
 
     _isLoading = false;
     update();
@@ -36,69 +43,88 @@ class LoginController extends GetxController implements GetxService {
     print("Login Status: ${response.statusCode}");
     print("Login Response: ${response.body}");
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final user = data['user'] ?? {};
-      final role = user['role'] ?? data['role'] ?? '';
-      final token = data['token'] ?? '';
+    // Backend may return a non-JSON body (e.g. Vercel "FUNCTION_INVOCATION_FAILED" page)
+    Map<String, dynamic>? data;
+    try {
+      final decoded = jsonDecode(response.body);
+      if (decoded is Map<String, dynamic>) data = decoded;
+    } catch (_) {}
 
-      // validate token
-      if (token == null || token.toString().isEmpty) {
+    if (response.statusCode == 200 && data != null) {
+      final Map user = data['user'] is Map ? data['user'] : {};
+      final role = (user['role'] ?? data['role'] ?? '').toString();
+      final token = (data['token'] ?? '').toString();
+
+      if (token.isEmpty) {
         customSnackBar("No token found in response");
         return;
       }
 
       // get user id (robust to _id or id)
-      final userId = user['id'] ?? user['_id'] ?? '';
-
-      if (userId.toString().isEmpty) {
+      final userId = (user['id'] ?? user['_id'] ?? '').toString();
+      if (userId.isEmpty) {
         customSnackBar("No user id returned by server");
         return;
       }
 
-      // Save to shared prefs
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(AppConstants.TOKEN, token);
-      await prefs.setString("userRole", role);
-      await prefs.setString("userId", userId.toString());
+      // Persist session; updateHeader also stores the token
+      loginRepo.apiClient.updateHeader(token);
+      final prefs = loginRepo.apiClient.sharedPreferences;
+      await prefs.setString(AppConstants.USER_ROLE, role);
+      await prefs.setString(AppConstants.USER_ID, userId);
 
-      // Update ApiClient header so subsequent requests include token
-      try {
-        loginRepo.apiClient.updateHeader(token);
-      } catch (e) {
-        print('Warning: failed to update api client header: $e');
-      }
-
-      // Navigate according to role, pass patientId when user is patient
-      if (role == 'doctor') {
-        Get.offNamed(RouteHelper.getDoctorHomeScreen(userId.toString()));
-      } else if (role == 'patient') {
-        final patientId = user["id"];
-
-        Get.put(
-          PatientPanelController(
-            apiClient: loginRepo.apiClient,
-            patientId: patientId,
-          ),
-          tag: patientId,
-        );
-
-        Get.toNamed(RouteHelper.getPatientHomeScreen(patientId), arguments: patientId);
-      } else {
+      if (!openHome(role, userId)) {
         customSnackBar("Invalid role received");
         print("Login returned unexpected role: $role");
       }
-    } else if (response.statusCode == 401) {
-      customSnackBar("Invalid credentials");
+    } else if (response.statusCode == 401 || response.statusCode == 400) {
+      customSnackBar(data?['message']?.toString() ?? "Invalid credentials");
+    } else if (response.statusCode >= 500) {
+      final detail = data?['error'] ?? data?['message'];
+      customSnackBar(detail != null
+          ? "Server error (${response.statusCode}): $detail"
+          : "Server is unavailable (HTTP ${response.statusCode}). Please try again later.");
     } else {
-      // attempt to parse message if any
-      try {
-        final body = jsonDecode(response.body);
-        final msg = body['message'] ?? body['error'] ?? '';
-        customSnackBar(msg.isNotEmpty ? msg : "Something went wrong. Try again later.");
-      } catch (_) {
-        customSnackBar("Something went wrong. Try again later.");
-      }
+      final msg = (data?['message'] ?? data?['error'] ?? '').toString();
+      customSnackBar(msg.isNotEmpty
+          ? msg
+          : "Something went wrong (HTTP ${response.statusCode}).");
     }
+  }
+
+  /// Navigates to the home screen for [role]. Returns false for an unknown role.
+  bool openHome(String role, String userId) {
+    if (role == 'doctor') {
+      Get.offAllNamed(RouteHelper.getDoctorHomeScreen(userId));
+      return true;
+    }
+    if (role == 'patient') {
+      PatientPanelController.ensure(userId,
+          apiClient: loginRepo.apiClient, refresh: true);
+      Get.offAllNamed(RouteHelper.getPatientHomeScreen(userId));
+      return true;
+    }
+    return false;
+  }
+
+  /// Opens the saved user's home screen if a session exists. Returns false otherwise.
+  bool restoreSession() {
+    final prefs = loginRepo.apiClient.sharedPreferences;
+    final token = prefs.getString(AppConstants.TOKEN) ?? '';
+    final role = prefs.getString(AppConstants.USER_ROLE) ?? '';
+    final userId = prefs.getString(AppConstants.USER_ID) ?? '';
+    if (token.isEmpty || userId.isEmpty) return false;
+    return openHome(role, userId);
+  }
+
+  Future<void> logout() async {
+    final userId =
+        loginRepo.apiClient.sharedPreferences.getString(AppConstants.USER_ID) ??
+            '';
+    if (Get.isRegistered<PatientPanelController>(tag: userId)) {
+      Get.delete<PatientPanelController>(tag: userId, force: true);
+    }
+    await loginRepo.apiClient.clearSession();
+    Get.offAllNamed(RouteHelper.getLoginPage());
   }
 }

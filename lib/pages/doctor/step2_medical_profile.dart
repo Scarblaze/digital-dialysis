@@ -68,7 +68,8 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
                 SizedBox(width: w * 0.03),
                 Expanded(
                   child: Obx(() => DropdownButtonFormField<String>(
-                    value: widget.controller.selectedGender.value,
+                    key: ValueKey(widget.controller.selectedGender.value),
+                    initialValue: widget.controller.selectedGender.value,
                     decoration: _inputDecoration(
                       label: "Gender",
                       icon: Icons.person,
@@ -133,7 +134,8 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
               children: [
                 Expanded(
                   child: Obx(() => DropdownButtonFormField<String>(
-                    value: widget.controller.selectedEducation.value,
+                    key: ValueKey(widget.controller.selectedEducation.value),
+                    initialValue: widget.controller.selectedEducation.value,
                     decoration: _inputDecoration(
                       label: "Education",
                       icon: Icons.school,
@@ -161,7 +163,8 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
                 SizedBox(width: w * 0.03),
                 Expanded(
                   child: Obx(() => DropdownButtonFormField<String>(
-                    value: widget.controller.selectedIncome.value,
+                    key: ValueKey(widget.controller.selectedIncome.value),
+                    initialValue: widget.controller.selectedIncome.value,
                     decoration: _inputDecoration(
                       label: "Income",
                       icon: Icons.attach_money,
@@ -219,7 +222,8 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
             SizedBox(height: h * 0.02),
 
             Obx(() => DropdownButtonFormField<String>(
-              value: widget.controller.selectedDialysisType.value,
+              key: ValueKey(widget.controller.selectedDialysisType.value),
+              initialValue: widget.controller.selectedDialysisType.value,
               decoration: _inputDecoration(
                 label: "Dialysis Type",
                 icon: Icons.water_drop_outlined,
@@ -374,7 +378,7 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: w * 0.025, horizontal: w * 0.03),
       decoration: BoxDecoration(
-        color: AppColors.darkPrimary.withOpacity(0.1),
+        color: AppColors.darkPrimary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(w * 0.02),
       ),
       child: Row(

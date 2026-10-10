@@ -47,7 +47,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [statusColor, statusColor.withOpacity(0.7)],
+                    colors: [statusColor, statusColor.withValues(alpha: 0.7)],
                   ),
                 ),
                 child: SafeArea(
@@ -63,10 +63,10 @@ class _DayDetailPageState extends State<DayDetailPage> {
                               width: w * 0.18,
                               height: w * 0.18,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.25),
+                                color: Colors.white.withValues(alpha: 0.25),
                                 borderRadius: BorderRadius.circular(w * 0.04),
                                 border: Border.all(
-                                  color: Colors.white.withOpacity(0.4),
+                                  color: Colors.white.withValues(alpha: 0.4),
                                   width: 2,
                                 ),
                               ),
@@ -86,7 +86,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
                                     style: TextStyle(
                                       fontSize: w * 0.028,
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.white.withOpacity(0.9),
+                                      color: Colors.white.withValues(alpha: 0.9),
                                       letterSpacing: 1.5,
                                     ),
                                   ),
@@ -113,7 +113,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
                                       vertical: h * 0.006,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.3),
+                                      color: Colors.white.withValues(alpha: 0.3),
                                       borderRadius: BorderRadius.circular(w * 0.03),
                                     ),
                                     child: Text(
@@ -187,12 +187,12 @@ class _DayDetailPageState extends State<DayDetailPage> {
       padding: EdgeInsets.all(w * 0.045),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.green.withOpacity(0.08), Colors.green.withOpacity(0.03)],
+          colors: [Colors.green.withValues(alpha: 0.08), Colors.green.withValues(alpha: 0.03)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: Colors.green.withOpacity(0.3), width: 1.5),
+        border: Border.all(color: Colors.green.withValues(alpha: 0.3), width: 1.5),
       ),
       child: Row(
         children: [
@@ -205,7 +205,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
               borderRadius: BorderRadius.circular(w * 0.025),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.green.withOpacity(0.3),
+                  color: Colors.green.withValues(alpha: 0.3),
                   blurRadius: 8,
                   offset: Offset(0, 3),
                 ),
@@ -248,12 +248,12 @@ class _DayDetailPageState extends State<DayDetailPage> {
       padding: EdgeInsets.all(w * 0.045),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue.withOpacity(0.08), Colors.purple.withOpacity(0.05)],
+          colors: [Colors.blue.withValues(alpha: 0.08), Colors.purple.withValues(alpha: 0.05)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(w * 0.04),
-        border: Border.all(color: Colors.blue.withOpacity(0.3), width: 1.5),
+        border: Border.all(color: Colors.blue.withValues(alpha: 0.3), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,7 +263,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
               Container(
                 padding: EdgeInsets.all(w * 0.025),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.15),
+                  color: Colors.blue.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(w * 0.02),
                 ),
                 child: Icon(Icons.verified_user, color: Colors.blue[700], size: w * 0.06),
@@ -409,7 +409,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
           padding: EdgeInsets.all(w * 0.025),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [color.withOpacity(0.2), color.withOpacity(0.1)],
+              colors: [color.withValues(alpha: 0.2), color.withValues(alpha: 0.1)],
             ),
             borderRadius: BorderRadius.circular(w * 0.025),
           ),
@@ -436,7 +436,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
         borderRadius: BorderRadius.circular(w * 0.04),
         boxShadow: [
           BoxShadow(
-            color: Colors.blue.withOpacity(0.08),
+            color: Colors.blue.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: Offset(0, 4),
           ),
@@ -471,7 +471,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
           padding: EdgeInsets.symmetric(horizontal: w * 0.03, vertical: h * 0.008),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blue.withOpacity(0.15), Colors.blue.withOpacity(0.08)],
+              colors: [Colors.blue.withValues(alpha: 0.15), Colors.blue.withValues(alpha: 0.08)],
             ),
             borderRadius: BorderRadius.circular(w * 0.02),
           ),
@@ -561,7 +561,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
                 borderRadius: BorderRadius.circular(w * 0.04),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.orange.withOpacity(0.2),
+                    color: Colors.orange.withValues(alpha: 0.2),
                     blurRadius: 10,
                     offset: Offset(0, 4),
                   ),
@@ -578,7 +578,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colors.transparent, Colors.black.withOpacity(0.3)],
+                          colors: [Colors.transparent, Colors.black.withValues(alpha: 0.3)],
                         ),
                       ),
                     ),
@@ -588,7 +588,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
                       child: Container(
                         padding: EdgeInsets.all(w * 0.015),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           borderRadius: BorderRadius.circular(w * 0.015),
                         ),
                         child: Text(
@@ -607,7 +607,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
                       child: Container(
                         padding: EdgeInsets.all(w * 0.015),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.6),
+                          color: Colors.black.withValues(alpha: 0.6),
                           borderRadius: BorderRadius.circular(w * 0.015),
                         ),
                         child: Icon(Icons.zoom_in, color: Colors.white, size: w * 0.045),
@@ -643,7 +643,7 @@ class _DayDetailPageState extends State<DayDetailPage> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: w * 0.03, vertical: h * 0.008),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(w * 0.04),
                 ),
                 child: Text(
