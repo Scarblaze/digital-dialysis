@@ -136,6 +136,7 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
                   child: Obx(() => DropdownButtonFormField<String>(
                     key: ValueKey(widget.controller.selectedEducation.value),
                     initialValue: widget.controller.selectedEducation.value,
+                    isExpanded: true,
                     decoration: _inputDecoration(
                       label: "Education",
                       icon: Icons.school,
@@ -150,7 +151,11 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
                     ]
                         .map((edu) => DropdownMenuItem(
                       value: edu,
-                      child: Text(edu, style: TextStyle(fontSize: w * 0.035)),
+                      child: Text(
+                        edu,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: w * 0.035),
+                      ),
                     ))
                         .toList(),
                     onChanged: (value) {
@@ -165,6 +170,7 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
                   child: Obx(() => DropdownButtonFormField<String>(
                     key: ValueKey(widget.controller.selectedIncome.value),
                     initialValue: widget.controller.selectedIncome.value,
+                    isExpanded: true,
                     decoration: _inputDecoration(
                       label: "Income",
                       icon: Icons.attach_money,
@@ -179,7 +185,11 @@ class _Step2MedicalProfileState extends State<Step2MedicalProfile> {
                     ]
                         .map((income) => DropdownMenuItem(
                       value: income,
-                      child: Text(income, style: TextStyle(fontSize: w * 0.035)),
+                      child: Text(
+                        income,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: w * 0.035),
+                      ),
                     ))
                         .toList(),
                     onChanged: (value) {
